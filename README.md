@@ -17,3 +17,16 @@ SG10K_Health is composed of 10,323 individuals consolidated from 6 pre-existing 
 - TTSH: 957 samples
 
 SG10K_Health have been initially processed through GATK4 pipeline. Subsequenlty, SG10K_Health have been re-analysed using DRAGEN pipeline.
+
+## Processing
+
+### 01.Sample_manifest
+
+Initially 10,714 samples were registered for the project Singapore National Precision Medicine Phase I.
+ A subset of 10,323 samples has been successfully sequenced and processed through GATK4 pipeline to be included in SG10K_Health dataset.
+ Subsequenlty, SG10K_Health have been re-analysed using DRAGEN pipeline.
+
+ [2024-10-16] As of today 1,543 samples are missing from the DRAGEN re-analysis
+
+ In order to generate the missing DRAGEN gVCF we start from the GATK4 CRAM, re-create FASTQ files, and run DRAGEN from the FASTQ files.
+ First step is to create a file manifest of CRAM & CRAI to restore the files from archive.

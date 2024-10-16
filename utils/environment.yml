@@ -1,0 +1,9 @@
+name: gnomad
+dependencies:
+- python= 3.13.0
+- pip
+- pip:
+  - jupyterlab
+  - pandas
+  - numpy
+  - python-dotenv
