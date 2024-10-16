@@ -1,0 +1,8 @@
+# environment variables
+.env
+
+# Private information
+.local/**
+
+# Jupyter checkpoints
+**/.ipynb_checkpoints/**
