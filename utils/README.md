@@ -17,6 +17,11 @@ conda activate gnomad
 jupyter lab
 ```
 
+## Illumina Connected Analytics
+
+* Install ICA CLI following [instructions](https://help.ica.illumina.com/command-line-interface/cli-installation)
+* Create an API key following [instructions](https://help.ica.illumina.com/get-started/gs-getstarted#api-keys)
+
 ## Environment variables
 
 In order to keep the private information away from the public repository, we define environment variables using dot-env module. We also keep sample metadata and file list in a private directory that is not published on the public repository.
@@ -28,3 +33,5 @@ In order to keep the private information away from the public repository, we def
 * CRAM_MANIFEST # S3 file manifest of cram files (.csv)
 * CRAI_MANIFEST # S3 file manifest of crai files (.csv)
 * GVCF_LIST # gvcf file list (.csv)
+* ICA_API_KEY # ICA API key (str)
+* ICA_PROJECT_ID # ICA project id (str)
