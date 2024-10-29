@@ -35,3 +35,4 @@ In order to keep the private information away from the public repository, we def
 * GVCF_LIST # gvcf file list (.csv)
 * ICA_API_KEY # ICA API key (str)
 * ICA_PROJECT_ID # ICA project id (str)
+* ICA_PREFIX # ICA storage BYOB prefix (s3://bucket/path/)
