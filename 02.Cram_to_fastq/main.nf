@@ -48,6 +48,6 @@ process cramToFastq {
     println "Processing ${sample_id}..."
     // Convert CRAM to FASTQ
     """
-    samtools fastq -n -O -1 ${sample_id}_R1.fastq.gz -2 ${sample_id}_R2.fastq.gz -i --threads 4 --index-format i10i10 --reference ${ref_fasta} ${input_cram}
+    samtools fastq -n -O -1 ${sample_id}_R1.fastq.gz -2 ${sample_id}_R2.fastq.gz -i --index-format i8 --threads 4 --reference ${ref_fasta} ${input_cram}
     """
 }
