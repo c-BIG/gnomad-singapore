@@ -15,6 +15,12 @@
   docker run -it htslib-samtools:latest bash
   ```
 
+* Save the docker image as .tar
+
+  ```sh
+  docker save htslib-samtools > htslib-samtools.tar
+  ```
+
 ## Create a Nextflow pipeline
 
 * Local run
@@ -75,3 +81,51 @@ GTACTCAAGTAACAGTGTTGAACCTTCCTTTTGACAGAGTAGTTTTGAAACACTCTTTGGGTAGAATCTGCAAGTGGATA
 +
 FFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFFFF:FF,FF,F:,FFFFF:FFF,:F:,:,FFFFF:FFFF,FFFFFFFFFFFF,FFF:FFF:::FFFF,FFFFFFF:FF:F,F:F,FF,FFFFF,FFF:F
 ```
+
+## Import the pipeline into ICA
+
+* Create a ICA Flow pipeline
+* Copy the content of main.nf
+* Update `process / container` variable with the ICA docker ARN
+* Define instance size and disk size using `process / pod annotation`
+* Define output as `publishDir "out", mode: 'symlink'`
+* Edit the XML configuration to interface `input_cram` and `ref_fasta`
+
+  ```xml
+  <pipeline code="" version="1.0" xmlns="xsd://www.illumina.com/ica/cp/pipelinedefinition">
+    <dataInputs>
+      <dataInput code="input_cram" format="CRAM" type="FILE" required="true" multiValue="false">
+        <label>input_cram</label>
+        <description>CRAM file to be converted in FASTQ</description>
+      </dataInput>
+      <dataInput code="ref_fasta" format="FASTA" type="FILE" required="true" multiValue="false">
+        <label>ref_fasta</label>
+        <description>Reference genome fasta file</description>
+      </dataInput>
+    </dataInputs>
+    <steps>
+    </steps>
+  </pipeline>
+  ```
+
+## Run the pipeline within ICA
+
+* In ICA / Flow / Pipeline, Start analysis
+* Select the cram and reference fasta
+* Start the analysis
+
+## Inspect output
+
+```sh
+# zcat < project/cram_to_fastq_output/WHH430-27dc8df6-130a-46dd-be8b-167d43b2e35b/WHH430_R1.fastq.gz | head
+@K00115:60:H5LFFBBXX:2:1116:3802:30063 1:N:0:0
+TAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTATGGGAAGAGCAAGCGTATGGGCTCGGGTCAGGGCGGGGAATAGGGTATGGGG
++
+AAFFFJJJJJJJJJJJJFJJJJJAJFJJJFJJJJJJJJJJJFFJJJJ<AJJJJJJFJJJAJ<FJJ<<JJJJ-FFJJFAFFJJJJ-AFJJFAFJJFJ<F77F--7F-A---7-7<-7<--))-))-7)7))))-))-)----7<---7--)
+@K00115:59:H5LJJBBXX:1:1212:19035:24349 1:N:0:0
+TAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAGCCTAACCCTAACCCTAACCCTAACCCTACCCCTAACCCCAACTCCTACCCCAACCCAAACCCTAACCCTAACCCTAACCCTAACCCCAACCC
++
+AAFFFJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFAFJF<A--F7F<-F--<AJAF-JJ--A-7F--7AAA7AJ-<F----77A--A7--77A-7-----7-7A-----7--7-7<-7---<-<--77F<F7FFAAF-<<-7)
+```
+
+FASTQ file looks ok, note that the OQ is restored.
