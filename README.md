@@ -53,3 +53,8 @@ Once the GATK4 CRAM files are restored, we use a nextflow pipeline to convert th
 #### Cram to Fastq run
 
 - Run ICA Flow analysis to convert the GATK4 CRAM into FASTQ
+
+### 03.Dragen
+
+- Get DRAGEN pipeline from Entitled bundle in ICA
+- Run DRAGEN analysis for all remaining samples
