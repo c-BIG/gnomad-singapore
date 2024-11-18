@@ -26,7 +26,30 @@ Initially 10,714 samples were registered for the project Singapore National Prec
  A subset of 10,323 samples has been successfully sequenced and processed through GATK4 pipeline to be included in SG10K_Health dataset.
  Subsequenlty, SG10K_Health have been re-analysed using DRAGEN pipeline.
 
- [2024-10-16] As of today 1,543 samples are missing from the DRAGEN re-analysis
+As of [2024-10-16] 1,543 samples are missing from the DRAGEN re-analysis.
 
- In order to generate the missing DRAGEN gVCF we start from the GATK4 CRAM, re-create FASTQ files, and run DRAGEN from the FASTQ files.
+In order to generate the missing DRAGEN gVCF we start from the GATK4 CRAM, re-create FASTQ files, and run DRAGEN from the FASTQ files.
  First step is to create a file manifest of CRAM & CRAI to restore the files from archive.
+ We then restore the file using AWS S3 batch operation and the manifest files.
+
+### 02.Cram_to_fastq
+
+Once the GATK4 CRAM files are restored, we use a nextflow pipeline to convert the CRAM to FASTQ.
+ For convenience, we are using Illumina Connected Analytics (ICA) as a platform to process CRAM to FASTQ then run the DRAGEN pipeline.
+
+#### Data preparation
+
+- Create a dedicated project in ICA
+- Copy the GATK4 CRAM files in ICA
+- Create sample object & link the CRAM files
+
+#### Pipeline development
+
+- Create a Docker image with samtools
+- Create a Nextflow pipeline that run `samtools fastq` command
+- Test the pipeline on local machine
+- Convert the pipeline into a ICA Flow pipeline
+
+#### Cram to Fastq run
+
+- Run ICA Flow analysis to convert the GATK4 CRAM into FASTQ
