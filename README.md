@@ -58,3 +58,5 @@ Once the GATK4 CRAM files are restored, we use a nextflow pipeline to convert th
 
 - Get DRAGEN pipeline from Entitled bundle in ICA
 - Run DRAGEN analysis for all remaining samples
+- Copy the resulting DRAGEN output directory to the original SG10K_Health DRAGEN reanalysis archive storage
+
