@@ -27,6 +27,7 @@ Initially 10,714 samples were registered for the project Singapore National Prec
  Subsequenlty, SG10K_Health have been re-analysed using DRAGEN pipeline.
 
 As of [2024-10-16] 1,543 samples are missing from the DRAGEN re-analysis.
+As of [2025-01-07] 1 sample is missing from DRAGEN re-analysis, sample have been abandoned
 
 In order to generate the missing DRAGEN gVCF we start from the GATK4 CRAM, re-create FASTQ files, and run DRAGEN from the FASTQ files.
  First step is to create a file manifest of CRAM & CRAI to restore the files from archive.
