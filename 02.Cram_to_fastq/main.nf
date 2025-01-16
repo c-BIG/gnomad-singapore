@@ -31,7 +31,14 @@ process cramToFastq {
     path "${sample_id}_R1.fastq.gz"
     path "${sample_id}_R2.fastq.gz"
 
-    // samtools-fastq options:
+    // samtools collate options:
+    // -u Write uncompressed BAM output.
+    // -O Output to stdout.
+    // --threads INT Number of threads to use in addition to main thread [0].
+    // --reference Specifies a FASTA reference file for use in CRAM encoding or decoding.
+    // -T Use PREFIX for temporary files. This is the same as specifying PREFIX as the last argument on the command line.
+
+    // samtools fastq options:
     // -n Read names to be left as they are
     // -O Use quality values from OQ tags.
     // -1 FILE Write reads with the READ1 FLAG set to FILE
@@ -46,8 +53,9 @@ process cramToFastq {
     // Extract sample_id from file name (NA12878.bqsr.cram -> NA12878)
     sample_id = input_cram.getSimpleName()
     println "Processing ${sample_id}..."
+    // Regroup reads by read name
     // Convert CRAM to FASTQ
     """
-    samtools fastq -n -O -1 ${sample_id}_R1.fastq.gz -2 ${sample_id}_R2.fastq.gz -i --index-format i8 --threads 4 --reference ${ref_fasta} ${input_cram}
+    samtools collate -u -O --threads 4 --reference ${ref_fasta} ${input_cram} tmp.bam.gz | \
+    samtools fastq -n -O -1 ${sample_id}_R1.fastq.gz -2 ${sample_id}_R2.fastq.gz -i --index-format i8 --threads 4 --reference ${ref_fasta}
     """
-}
