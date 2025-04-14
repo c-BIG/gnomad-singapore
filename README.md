@@ -61,3 +61,9 @@ Once the GATK4 CRAM files are restored, we use a nextflow pipeline to convert th
 - Run DRAGEN analysis for all remaining samples
 - Copy the resulting DRAGEN output directory to the original SG10K_Health DRAGEN reanalysis archive storage
 
+### 04.Hail release
+
+- Generate a file manifest of the 10,323 gVCF available
+- Upload the gVCF manifest to S3
+- Restore all the gVCF
+- Import gVCF into Hail VDS
