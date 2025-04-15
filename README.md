@@ -27,6 +27,7 @@ Initially 10,714 samples were registered for the project Singapore National Prec
  Subsequenlty, SG10K_Health have been re-analysed using DRAGEN pipeline.
 
 As of [2024-10-16] 1,543 samples are missing from the DRAGEN re-analysis.
+As of [2025-01-07] 1 sample is missing from DRAGEN re-analysis, sample have been abandoned
 
 In order to generate the missing DRAGEN gVCF we start from the GATK4 CRAM, re-create FASTQ files, and run DRAGEN from the FASTQ files.
  First step is to create a file manifest of CRAM & CRAI to restore the files from archive.
@@ -60,3 +61,9 @@ Once the GATK4 CRAM files are restored, we use a nextflow pipeline to convert th
 - Run DRAGEN analysis for all remaining samples
 - Copy the resulting DRAGEN output directory to the original SG10K_Health DRAGEN reanalysis archive storage
 
+### 04.Hail release
+
+- Generate a file manifest of the 10,323 gVCF available
+- Upload the gVCF manifest to S3
+- Restore all the gVCF
+- Import gVCF into Hail VDS
