@@ -1,4 +1,4 @@
-# gnomad-singapore
+# GnomAD-Singapore
 
 The gnomAD project has demonstrated the value of allele frequency reference datasets that are processed consistently, jointly called, and harmonized. However, this centralized approach is not feasible for all datasets, as some data, particularly from historically marginalized groups, are restricted to specific environments for ethical and legal reasons. In order to incorporate these datasets into gnomAD, we have launched the Federated gnomAD network. This network includes sites from across the globe, including sites in South Africa (H3Africa), Australia (Centre for Population Genomics), Qatar (Qatar Biobank), Singapore (Singapore National Precision Medicine), and Spain (European Genome Phenome Archive). All sites participating in the federated gnomAD plan to process and quality control their data according to gnomAD best practices and freely share aggregate allele frequency data with the primary gnomAD database. As such, each site will produce high quality callsets of their data, and all of the summary data will be aggregated with primary gnomAD data for ease of use by the wider scientific and clinical community.
 
@@ -27,11 +27,12 @@ Initially 10,714 samples were registered for the project Singapore National Prec
  Subsequenlty, SG10K_Health have been re-analysed using DRAGEN pipeline.
 
 As of [2024-10-16] 1,543 samples are missing from the DRAGEN re-analysis.
-As of [2025-01-07] 1 sample is missing from DRAGEN re-analysis, sample have been abandoned
 
 In order to generate the missing DRAGEN gVCF we start from the GATK4 CRAM, re-create FASTQ files, and run DRAGEN from the FASTQ files.
  First step is to create a file manifest of CRAM & CRAI to restore the files from archive.
  We then restore the file using AWS S3 batch operation and the manifest files.
+
+As of [2025-01-07] 1 sample is missing from DRAGEN re-analysis, sample have been abandoned
 
 ### 02.Cram_to_fastq
 
@@ -61,9 +62,9 @@ Once the GATK4 CRAM files are restored, we use a nextflow pipeline to convert th
 - Run DRAGEN analysis for all remaining samples
 - Copy the resulting DRAGEN output directory to the original SG10K_Health DRAGEN reanalysis archive storage
 
-### 04.Hail release
+### 04.gVCF to VDS
 
-- Generate a file manifest of the 10,323 gVCF available
-- Upload the gVCF manifest to S3
-- Restore all the gVCF
+- Generate a file manifest of the 10,323 gVCF and tbi available
+- Upload the gVCF and tbi manifests to S3
+- Restore all the gVCF and tbi
 - Import gVCF into Hail VDS

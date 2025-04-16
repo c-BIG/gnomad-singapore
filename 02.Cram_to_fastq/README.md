@@ -1,4 +1,4 @@
-# gnomad-Singapore / CRAM to FASTQ
+# GnomAD-Singapore / 02.CRAM to FASTQ
 
 ## Create a docker
 
@@ -54,7 +54,7 @@
 
 In the DRAGEN demo, 1 sample has FASTQ files from 4 lanes & separate R1 / R2
 
-the fastq list csv file, use as an input from the DRAGEN run is as below:
+The fastq list csv file, use as an input from the DRAGEN run is as below:
 
 ```sh
 RGID          RGSM    RGLB            Lane  Read1File                         Read2File
